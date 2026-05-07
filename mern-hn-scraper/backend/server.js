@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 const Story = require("./src/models/Story");
+const scrapeStories = require("./src/services/scraperService");
 
 const app = express();
 
@@ -17,21 +18,28 @@ app.get("/", (req, res) => {
   res.json({ message: "Server Running Successfully" });
 });
 
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(async () => {
+const startServer = async () => {
+  try {
+    // Connect MongoDB
+    await mongoose.connect(process.env.MONGO_URI);
+
     console.log("MongoDB Connected");
+
+    // Run scraper automatically
+    await scrapeStories();
 
     // Count stories
     const count = await Story.countDocuments();
 
     console.log(`Stories in DB: ${count}`);
 
-    // Start server 
+    // Start server
     app.listen(PORT, () => {
       console.log(`Server running on PORT ${PORT}`);
     });
-  })
-  .catch((error) => {
+  } catch (error) {
     console.log(error);
-  });
+  }
+};
+
+startServer();
