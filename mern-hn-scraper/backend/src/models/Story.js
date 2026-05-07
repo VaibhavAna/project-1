@@ -1,3 +1,12 @@
+// Story Model
+
+// Title
+// URL
+// Points
+// Author
+// Posted Time
+
+
 const mongoose = require("mongoose");
 
 const storySchema = new mongoose.Schema(

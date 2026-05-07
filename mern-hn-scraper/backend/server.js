@@ -4,6 +4,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
+const Story = require("./src/models/Story");
+
 const app = express();
 
 app.use(cors());
@@ -17,9 +19,15 @@ app.get("/", (req, res) => {
 
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => {
+  .then(async () => {
     console.log("MongoDB Connected");
 
+    // Count stories
+    const count = await Story.countDocuments();
+
+    console.log(`Stories in DB: ${count}`);
+
+    // Start server
     app.listen(PORT, () => {
       console.log(`Server running on PORT ${PORT}`);
     });

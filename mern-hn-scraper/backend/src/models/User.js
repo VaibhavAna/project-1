@@ -1,5 +1,13 @@
 //In models we always stored user schema.
 //Here we have use 3 fields name,email,password,bookmarks
+
+//This structure is good 
+//userd model
+//Includes:-Authentication data,bookmarks array ,timestamp
+//This is scalable and recruiter-friendly.
+
+
+
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
