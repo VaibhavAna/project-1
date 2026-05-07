@@ -27,7 +27,7 @@ mongoose
 
     console.log(`Stories in DB: ${count}`);
 
-    // Start server
+    // Start server 
     app.listen(PORT, () => {
       console.log(`Server running on PORT ${PORT}`);
     });
