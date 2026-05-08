@@ -31,7 +31,6 @@ function HomePage() {
         setStories(res.data);
 
       } catch (error) {
-
         console.log(error);
       }
     };
@@ -68,8 +67,7 @@ function HomePage() {
     <div
       style={{
         minHeight: "100vh",
-        background:
-          "linear-gradient(135deg, #0f172a, #1e3a8a)",
+        background: "linear-gradient(135deg, #0f172a, #1e3a8a)",
         fontFamily: "Arial",
         padding: "25px 15px",
       }}
@@ -82,11 +80,9 @@ function HomePage() {
           margin: "0 auto",
           padding: "14px 18px",
           borderRadius: "16px",
-          background:
-            "rgba(255,255,255,0.85)",
+          background: "rgba(255,255,255,0.85)",
           backdropFilter: "blur(10px)",
-          boxShadow:
-            "0 10px 25px rgba(0,0,0,0.2)",
+          boxShadow: "0 10px 25px rgba(0,0,0,0.2)",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -121,10 +117,7 @@ function HomePage() {
               <Link style={navLink} to="/register">Register</Link>
             </>
           ) : (
-            <button
-              onClick={logout}
-              style={logoutBtn}
-            >
+            <button onClick={logout} style={logoutBtn}>
               Logout
             </button>
           )}
@@ -165,12 +158,10 @@ function HomePage() {
             key={story._id}
             style={cardStyle}
             onMouseEnter={(e) =>
-              e.currentTarget.style.transform =
-                "translateY(-3px)"
+              e.currentTarget.style.transform = "translateY(-3px)"
             }
             onMouseLeave={(e) =>
-              e.currentTarget.style.transform =
-                "translateY(0px)"
+              e.currentTarget.style.transform = "translateY(0px)"
             }
           >
 
@@ -213,20 +204,50 @@ function HomePage() {
 
             {user && (
               <div style={{ marginTop: "12px" }}>
-
                 <button
                   onClick={() => handleBookmark(story._id)}
                   style={bookmarkBtn}
                 >
                   🔖 Bookmark
                 </button>
-
               </div>
             )}
 
           </div>
 
         ))}
+
+      </div>
+
+      {/* FOOTER */}
+      <div
+        style={{
+          maxWidth: "950px",
+          margin: "40px auto 0 auto",
+          padding: "18px",
+          borderRadius: "16px",
+          background: "rgba(255,255,255,0.85)",
+          backdropFilter: "blur(10px)",
+          boxShadow: "0 10px 25px rgba(0,0,0,0.2)",
+          textAlign: "center",
+          color: "#1e3a8a",
+          fontSize: "13px",
+        }}
+      >
+
+        <p style={{ margin: "0 0 6px 0", fontWeight: "600" }}>
+          ⚡ Hacker News Scraper
+        </p>
+
+        <p style={{ margin: "0 0 10px 0", color: "#475569" }}>
+          Built with React • Node.js • MongoDB
+        </p>
+
+        
+
+        <p style={{ marginTop: "10px", color: "#94a3b8", fontSize: "11px" }}>
+          © {new Date().getFullYear()} All rights reserved
+        </p>
 
       </div>
 
@@ -271,5 +292,4 @@ const bookmarkBtn = {
   borderRadius: "10px",
   cursor: "pointer",
   fontSize: "12px",
-  transition: "0.2s",
 };
