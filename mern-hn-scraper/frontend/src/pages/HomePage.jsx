@@ -8,7 +8,24 @@ function HomePage() {
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const storiesPerPage = 5;
+
   const { user, logout } = useContext(AuthContext);
+
+  const lastStoryIndex = currentPage * storiesPerPage;
+
+  const firstStoryIndex = lastStoryIndex - storiesPerPage;
+
+  const currentStories = stories.slice(
+    firstStoryIndex,
+    lastStoryIndex
+  );
+
+  const totalPages = Math.ceil(
+    stories.length / storiesPerPage
+  );
 
   useEffect(() => {
     const fetchStories = async () => {
@@ -32,6 +49,14 @@ function HomePage() {
 
     fetchStories();
   }, []);
+
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [currentPage]);
 
   const handleBookmark = async (storyId) => {
     if (!user) {
@@ -89,7 +114,7 @@ function HomePage() {
         padding: "25px 15px",
       }}
     >
-      {/* NAVBAR */}
+      {}
       <div
         style={{
           maxWidth: "950px",
@@ -151,7 +176,7 @@ function HomePage() {
         </div>
       </div>
 
-      {/* USER STATUS */}
+      {}
       <div
         style={{
           maxWidth: "950px",
@@ -169,7 +194,7 @@ function HomePage() {
         )}
       </div>
 
-      {/* STORIES */}
+      {}
       <div
         style={{
           maxWidth: "950px",
@@ -190,7 +215,7 @@ function HomePage() {
             No stories found
           </div>
         ) : (
-          stories.map((story) => (
+          currentStories.map((story) => (
             <div
               key={story._id}
               style={cardStyle}
@@ -257,7 +282,77 @@ function HomePage() {
         )}
       </div>
 
-      {/* FOOTER */}
+      {}
+      {stories.length > 0 && (
+        <div
+          style={{
+            maxWidth: "950px",
+            margin: "30px auto",
+            display: "flex",
+            justifyContent: "center",
+            gap: "10px",
+            flexWrap: "wrap",
+          }}
+        >
+          <button
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage(currentPage - 1)}
+            style={{
+              padding: "10px 14px",
+              borderRadius: "10px",
+              border: "none",
+              cursor: "pointer",
+              background: "#2563eb",
+              color: "#fff",
+              fontWeight: "600",
+            }}
+          >
+            Prev
+          </button>
+
+          {[...Array(totalPages)].map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentPage(index + 1)}
+              style={{
+                padding: "10px 14px",
+                borderRadius: "10px",
+                border: "none",
+                cursor: "pointer",
+                fontWeight: "600",
+                background:
+                  currentPage === index + 1
+                    ? "#1e3a8a"
+                    : "#e2e8f0",
+                color:
+                  currentPage === index + 1
+                    ? "#fff"
+                    : "#000",
+              }}
+            >
+              {index + 1}
+            </button>
+          ))}
+
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage(currentPage + 1)}
+            style={{
+              padding: "10px 14px",
+              borderRadius: "10px",
+              border: "none",
+              cursor: "pointer",
+              background: "#2563eb",
+              color: "#fff",
+              fontWeight: "600",
+            }}
+          >
+            Next
+          </button>
+        </div>
+      )}
+
+      {}
       <div
         style={{
           maxWidth: "950px",
@@ -306,7 +401,7 @@ function HomePage() {
 
 export default HomePage;
 
-/* ---------------- STYLES ---------------- */
+
 
 const navLink = {
   textDecoration: "none",
